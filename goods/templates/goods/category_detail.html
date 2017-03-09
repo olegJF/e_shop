@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{%load staticfiles%}
+{% block content %}
+	<h2>{{category.name}}</h2>
+	<p>{{category.description}}</p>
+	{% if category.product_set.count %}
+		<ul>
+			{%for pr in category.product_set.all%}
+				<li>
+				<a href=" {{ pr.get_absolute_url }} " alt="">
+				{{pr.name}}__{{pr.brand.name}}
+				</a></li>			
+			{%endfor%}
+		</ul>
+	{% endif %}
+	<ul>
+	{% for cat in category.category_set.all %}
+		<li><a href=" {{ cat.get_absolute_url }} " alt="">{{cat.name}} </a></li>
+		
+	
+	{% endfor %}
+	</ul>
+{% endblock content %}
