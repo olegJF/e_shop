@@ -14,7 +14,7 @@ class Category(MPTTModel):
                             null=True, related_name='children', on_delete=models.CASCADE)
     level = models.IntegerField(default=0, db_index=True)
     description = models.TextField(verbose_name='Описание категории', blank=True)
-    # img = models.ImageField(verbose_name='Фото категории', blank=True, upload_to='category_img')
+    image = models.ImageField(verbose_name='Фото категории', blank=True, upload_to='category_img')
 
     def save(self, *args, **kwargs):
         self.slug = '{}'.format(unidecode(self.name).replace('-', '_').replace(' ', '_').replace("'", '').lower())
