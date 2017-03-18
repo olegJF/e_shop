@@ -1,4 +1,7 @@
-
+body {
+	font-family: "RobotoRegular", sans-serif;
+	font-size: 16px;
+}
 .cart{
     
 }
@@ -17,4 +20,28 @@
 .navbar-default {
     background-color: #Fff;
     border-color: #fff;
+}
+.img{
+    margin: 20px auto;
+    text-align: center;
+    
+}
+.descr{
+    padding: inherit;
+    background-color: #eee;
+    padding: 10px;
+}
+.descr h4{
+    margin-bottom: 15px;
+    font-family: "RobotoCondensedLight";
+}
+.logo {
+	font-family: "NautilusPompiliusRegular";
+    font-size: 30px;
+}
+.fa-home{
+    color: forestgreen;
+}
+.fa-envelope{
+    color: #F8DA2B;
 }
