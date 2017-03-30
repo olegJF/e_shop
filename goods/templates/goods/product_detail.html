@@ -19,13 +19,16 @@
 		<p class="price">
 			{{ product.price }} UAH.
 		</p>
+		
 		{% if product.is_available %}
-			<form action="{% url "cart:add_to_cart" product.id %}" method="post">
+			<form action="{% url "cart:add_to_cart" product.id %}" method="post" class="form-inline">
 				{% csrf_token %}
 				<label for="id_quantity">Количество:</label>
-				<input id="id_quantity" name="quantity" type="text" size="2" />
+				<input id="id_quantity" name="quantity" type="number" class="form-control" size="2" />
 				<input id="id_update" name="update" type="hidden" value="False" />
-				<input type="submit" value="Добавить в корзину">
+				<button type="submit" class="btn btn-success">
+				<i class="fa fa-shopping-basket   " aria-hidden="true"></i>
+				</button>
 			</form>
 		{% else %}
 		<h3>Нет в наличии</h3>

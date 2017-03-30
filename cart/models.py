@@ -2,6 +2,13 @@ from django.db import models
 from goods.models import Product
 from django.db.models.signals import post_save
 
+ORDER_STATUS = (
+	('new', 'Новый'), 
+    ('pending', 'Обрабатывается'),
+    ('canceled', 'Отменен'), 
+    ('delivered', 'Доставлен'),
+    ('paid', 'Оплачен'),
+)
 
 class Status(models.Model):
     name = models.CharField(max_length=100, verbose_name='Статус заказа')
@@ -23,6 +30,7 @@ class Order(models.Model):
     customer_phone_number = models.CharField(max_length=10, verbose_name='Номер телефона')
     total_quantity = models.PositiveIntegerField(default=0, verbose_name='Количество')
     total_price = models.DecimalField(default=0, verbose_name='Сумма', max_digits=10, decimal_places=2)
+    # status = models.CharField(max_length=120, choices=ORDER_STATUS, default='new')
     status = models.ForeignKey(Status, verbose_name='Статус заказа', to_field = 'slug', default='new')
     # address =  models.CharField(verbose_name='Адрес', max_length=250)
     comment = models.TextField(blank=True, verbose_name='Доп. информация')

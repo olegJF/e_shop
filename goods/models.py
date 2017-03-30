@@ -5,6 +5,10 @@ from django.core.urlresolvers import reverse
 from .fields import ThumbnailImageField
 from mptt.models import MPTTModel, TreeForeignKey
 
+CHOICE_MEASUREMENT = (  ('pcs','шт.'),
+                        ('kg','кг.'), 
+                        ('l','л.'),)
+
 
 class Category(MPTTModel):
     name = models.CharField(max_length=100, help_text='Введите название категории',
@@ -51,7 +55,21 @@ class Brand(models.Model):
 
     def __str__(self):
         return self.name
+        
+class ProductQuerySet(models.query.QuerySet):
+    
+    def active(self):
+        return self.filter(is_available=True)
 
+
+class ProductManager(models.Manager):
+    
+    def get_queryset(self):
+        return ProductQuerySet(self.model, using=self._db)
+
+    def all(self, *args, **kwargs):
+        return self.get_queryset().active()
+        
 
 class Product(models.Model):
     category = models.ForeignKey(Category, verbose_name='Категория товара', db_index=True)
@@ -60,9 +78,13 @@ class Product(models.Model):
     # slug = models.SlugField(blank=True)
     description = models.TextField(verbose_name='Описание товара', blank=True)
     price = models.DecimalField(blank=True, max_digits=10, decimal_places=2)
+    measurement = models.CharField(max_length=10, choices=CHOICE_MEASUREMENT, default='pcs', verbose_name='измерение')
+    value = models.FloatField(default=0, verbose_name='зачение')
     # quantity = models.PositiveIntegerField(default=0, verbose_name='Количество')
     is_available = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True, auto_now=False, editable=False)
+    
+    objects = ProductManager()
 
     # def save(self, *args, **kwargs):
     #     self.slug = '{}'.format(unidecode(self.name).replace('-', '_').replace(' ', '_').lower())
@@ -74,7 +96,7 @@ class Product(models.Model):
         ordering = ['name']
 
     def __str__(self):
-        return '%s_%s' % (self.name, self.brand)
+        return '%s_%s_%s_%s' % (self.category, self.brand, self.name, self.value)
 
     def get_absolute_url(self):
         return reverse('product_detail', kwargs={"pk": self.pk})

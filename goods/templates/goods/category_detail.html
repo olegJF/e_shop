@@ -1,23 +1,52 @@
 {% extends 'base.html' %}
 {%load staticfiles%}
+{% load mptt_tags %}
+
 {% block content %}
-	<h2>{{category.name}}</h2>
-	<p>{{category.description}}</p>
-	{% if category.product_set.count %}
-		<ul>
-			{%for pr in category.product_set.all%}
+	<h2>{{nodes.name}}</h2>
+	<p>{{nodes.description}}</p>
+	
+		 
+		<ul class="children">
+			
+		{% for children in nodes.get_descendants %}
+			<li>
+				<a href="{{ children.get_absolute_url }}" alt="">
+					{{children.name}}
+				</a>
+			</li>
+		
+		{% empty %}
+			
+			{%for pr in products %}
 				<li>
 				<a href=" {{ pr.get_absolute_url }} " alt="">
 				{{pr.name}}__{{pr.brand.name}}
 				</a></li>			
 			{%endfor%}
 		</ul>
-	{% endif %}
+				
+		{% endfor %}
+    			
+                   
+        
+	
 	<ul>
-	{% for cat in category.category_set.all %}
+	{% for cat in nodes.category_set.all %}
 		<li><a href=" {{ cat.get_absolute_url }} " alt="">{{cat.name}} </a></li>
 		
 	
 	{% endfor %}
 	</ul>
 {% endblock content %}
+
+<!-- 		{% if nodes.product_set.count %}
+			<ul>
+				{%for pr in nodes.product_set.all%}
+					<li>
+					<a href=" {{ pr.get_absolute_url }} " alt="">
+					{{pr.name}}__{{pr.brand.name}}
+					</a></li>			
+				{%endfor%}
+			</ul>
+		{% endif %} -->

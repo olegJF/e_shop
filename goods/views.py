@@ -15,7 +15,17 @@ class CategoryList(ListView):
 class CategoryDetail(DetailView):
     model = Category
     template_name = 'goods/category_detail.html'
-    context_object_name = 'category'
+    context_object_name = 'nodes'
+    
+    def get_context_data(self, *args, **kwargs):
+        context = super(CategoryDetail, self).get_context_data(*args, **kwargs)
+        obj = self.get_object()
+        product_set = obj.product_set.all()
+        # default_products = obj.default_category.all()
+        # products = ( product_set | default_products ).distinct()
+        context["products"] = product_set
+        return context
+    
     #return render(request, 'goods/category_detail.html', {'category': category})
 
 
