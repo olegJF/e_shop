@@ -22,7 +22,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('goods.urls')),
     url(r'^cart/', include('cart.urls', namespace='cart')),
-    url(r'^api/shop/', include('goods.api.urls', namespace='shop-api')),
+    url(r'^api/', include('goods.api.urls')),
 ]
 
 
