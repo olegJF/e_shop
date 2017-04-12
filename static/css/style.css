@@ -45,3 +45,7 @@ body {
 .fa-envelope{
     color: #F8DA2B;
 }
+.breadcrumb > li + li::before {
+    content: "\f105";
+	font-family: 'FontAwesome'
+}

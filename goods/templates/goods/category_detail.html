@@ -1,11 +1,28 @@
 {% extends 'base.html' %}
 {%load staticfiles%}
 {% load mptt_tags %}
+{% block breadcrumb %}
+<div class="container "> 
+	<ol class="breadcrumb">
+		<li><a href="{% url 'home' %} ">Главная</a></li>
+		{% for crumb in nodes.get_ancestors %}
+			<li>
+				<a href="{{ crumb.get_absolute_url }}" alt="">
+					{{crumb.name}}
+				</a>
+			</li>
+		{% endfor %}
+		<li class="active">{{nodes.name}}</li>
+	</ol>
+           
+</div>
+{% endblock breadcrumb %}
+
 
 {% block content %}
+		
 	<h2>{{nodes.name}}</h2>
 	<p>{{nodes.description}}</p>
-	
 		 
 		<ul class="children">
 			

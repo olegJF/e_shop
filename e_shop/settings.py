@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'cart',
     'mptt',
     'rest_framework',
+
 ]
 
 MIDDLEWARE_CLASSES = [

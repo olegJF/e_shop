@@ -8,7 +8,7 @@ from .serializers import ProductDetailSerializer
 from .serializers import CategoryDetailSerializer
 from .serializers import ProductSerializer
 from .serializers import PhotoSerializer
-from .urls import *
+from cart.models import Order
 
 
 
@@ -52,6 +52,10 @@ class APIHomeView(APIView):
             "categories":{
                 "count": Category.objects.all().count(),
                 "url": api_reverse('categories_api', request=request),
+                },
+            "orders":{
+                "count": Order.objects.all().count(),
+                "url": api_reverse('orders_api', request=request),
                 },
         }
         return Response(data)
