@@ -23,13 +23,28 @@
 		
 	<h2>{{nodes.name}}</h2>
 	<p>{{nodes.description}}</p>
+	
 		 
 		<ul class="children">
 			
-		{% for children in nodes.get_descendants %}
+		{% for children in nodes.get_children %}
 			<li>
 				<a href="{{ children.get_absolute_url }}" alt="">
 					{{children.name}}
+				
+					{% if not children.is_leaf_node %}
+						<ul class="children">
+							{% for child in children.get_children %}
+								<li>
+									<a href="{{ child.get_absolute_url }}" alt="">
+										{{child.name}}
+									</a>
+								</li>
+							{% endfor %}
+						</ul>
+						
+					{% endif %}
+					
 				</a>
 			</li>
 		
@@ -67,3 +82,9 @@
 				{%endfor%}
 			</ul>
 		{% endif %} -->
+		
+<!-- 					<br>get_siblings {{children.get_siblings}}
+					<br>is_leaf_node {{children.is_leaf_node}}
+					<br>is_child_node {{children.is_child_node}}
+					<br>get_previous_sibling {{children.get_previous_sibling}}
+					<br>get_next_sibling {{children.get_next_sibling}} -->

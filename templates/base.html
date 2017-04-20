@@ -41,19 +41,31 @@
                                 <i class="fa fa-envelope fa-2x" aria-hidden="true"></i>
                                 Contact
                                 </a></li>
-                            <li class="btn btn-default btn-xs">
+                            <li class="btn btn-default btn-xs" id='cart'> 
+								
                                {% with total_items=cart|length %}
                                 {% if cart|length > 0 %}
                                     <a  href="{% url 'cart:detail' %}">
                                     <i class="fa fa-shopping-basket cart fa-2x not_empty" aria-hidden="true"></i>
                                     {{ cart.get_total_price }} uah.
                                     </a>
+									<!-- <div class="clearfix"></div> -->
+									<div class="cart-container">
+									<div class='cart-items hidden'>
+										<ul>
+										{% for item in cart %}
+											<ol>{{item.product}} - {{item.quantity}} шт. </ol>
+										{% endfor %}	
+										</ul>
+									</div>
+									</div>
                                 {%else%}
                                   <a href="#">
                                         <i class="fa fa-shopping-basket cart fa-2x empty" aria-hidden="true"></i> 0 uah.
                                 </a>  
                                 {% endif %}
                             {% endwith %} 
+							
                             </li>
                         </ul>
 
@@ -67,7 +79,9 @@
     {% block content %}{% endblock %}
   </section>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
   <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'js/scripts.js' %}"></script>
   
 </body>
 </html>

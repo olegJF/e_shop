@@ -49,3 +49,20 @@ body {
     content: "\f105";
 	font-family: 'FontAwesome'
 }
+.cart-container{
+	position: relative;
+	width: 300%;
+	margin-left: -200px;
+}
+.cart-items{
+	position: absolute;
+	background-color: #fefefe;
+	width: 100%;
+	z-index: 10;
+	padding: 10px;
+	text-align: left;
+}
+.cart-items ul, ol {
+	margin-left: -30px;
+	font-family: "RobotoCondensedLight";
+}

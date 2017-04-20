@@ -32,7 +32,7 @@
 		{% endfor %}
     </div>
     <div class="col-sm-8">
-		<h1>{{ product.name }} Brand {{product.brand.name}}</h1>
+		<h1>{{ product.name }} -- {{product.brand.name}}</h1>
 		
 		<h2><a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h2>
 		<p class="price">
