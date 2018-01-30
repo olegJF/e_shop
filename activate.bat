@@ -1,1 +1,0 @@
-"C:\Users\Oleg\shop\Scripts\activate.bat"
